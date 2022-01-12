@@ -102,10 +102,10 @@ app.get('/servicios_vehiculo',function(req,res){
 
 //Información de un servicio filtrando por el ID del servicio
 
-app.get('/servicios_vehiculo',function(req,res){
+app.get('/descripcion_servicio',function(req,res){
 
-  const id = req.query.id_vehiculo;
-  const sql = "SELECT descripcion from servicios where ID_servicio = "+id;
+  const id = req.query.id_servicio;
+  const sql = "SELECT descripcion from servicios where ID_Servicio = "+id;
 
   con.query(sql, function (err, result) {
     if (err) throw err;
@@ -115,3 +115,5 @@ app.get('/servicios_vehiculo',function(req,res){
     res.json(result);
   });
 });
+
+
