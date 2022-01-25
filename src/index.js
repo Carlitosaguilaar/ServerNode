@@ -192,9 +192,23 @@ app.post('/eliminar_usuario', function (req,res) {
 
 
 
-// Eliminar un vehículo
+// Eliminar un vehículo       ***Falta comprobar***
 
+app.post('/eliminar_vehiculo', function (req,res) {
 
+  const id = req.query.id_vehiculo;
+
+  const sql = "delete from vehiculos where ID_Vehiculo = "+id;
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log ("Se ha eliminado el vehiculo.");
+    console.log ("Result: "+JSON.stringify(result,null,2));
+    
+    res.json(result);
+  });
+
+});
 
 // Modificar un servicio
 
