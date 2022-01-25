@@ -17,10 +17,14 @@ con.connect(function(err) {
 
 var express = require('express');
 var app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 var server = app.listen(3000,function(err,re) {});
 
 
-//Mostar lista de usuarios
+//Mostar lista de usuarios        ***FUNCIONA***
 app.get('/lista',function(req,res){
 
     const sql = "SELECT * from usuarios";
@@ -34,7 +38,7 @@ app.get('/lista',function(req,res){
     });
 });
 
-//Mostar información de un usuario, filtrando por su ID
+//Mostar información de un usuario, filtrando por su ID        ***FUNCIONA***
 app.get('/usuarios',function(req,res){
 
   const id = req.query.id_usuario;
@@ -51,7 +55,7 @@ app.get('/usuarios',function(req,res){
 
 
 
-//Lista de vehículos filtrando por ID de usuario
+//Lista de vehículos filtrando por ID de usuario        ***FUNCIONA***
 
 app.get('/vehiculo_usuario',function(req,res){
 
@@ -67,7 +71,7 @@ app.get('/vehiculo_usuario',function(req,res){
   });
 });
 
-//Información de un vehículo filtrando por el ID del vehículo
+//Información de un vehículo filtrando por el ID del vehículo        ***FUNCIONA***
 
 app.get('/vehiculo_id',function(req,res){
 
@@ -84,7 +88,7 @@ app.get('/vehiculo_id',function(req,res){
 });
 
 
-//Lista de servicios filtrando por un ID de vehículo
+//Lista de servicios filtrando por un ID de vehículo        ***FUNCIONA***
 
 app.get('/servicios_vehiculo',function(req,res){
 
@@ -100,7 +104,7 @@ app.get('/servicios_vehiculo',function(req,res){
   });
 });
 
-//Información de un servicio filtrando por el ID del servicio
+//Información de un servicio filtrando por el ID del servicio     ***FUNCIONA***
 
 app.get('/descripcion_servicio',function(req,res){
 
@@ -116,4 +120,110 @@ app.get('/descripcion_servicio',function(req,res){
   });
 });
 
+
+// Modificar datos de un usuario      ***NO FUNCIONA***
+
+app.post('/modificar_usuario',function(req,res){
+
+  const nombre = req.body.nombre;
+  const telefono = req.body.telefono;
+  const email = req.body.email;
+  const id = req.body.id_usuario;
+  
+  const sql = "UPDATE usuarios SET nombre = '"+nombre+"', telefono ="+telefono+" , email ='"+email+"' where ID_Usuario ="+id;
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    console.log ("Se ha realizado el cambio.")
+    console.log("Result: " + JSON.stringify(result,null,2));
+
+    res.json({Estado: "Ok"});
+  });
+});
+
+
+// Crear un nuevo usuario   ***NO FUNCIONA***
+
+app.post('/crear_usuario', function (req,res) {
+
+  const nombre = req.body.nombre;
+  const contra = req.body.contraseña;
+  const telefono = req.body.telefono;
+  const email = req.body.email;
+
+  const sql = "insert into usuarios (Contraseña, Nombre, Telefono, Email ) values ( "+contra+" ,"+nombre+" ,"+telefono+" ,"+email+" )"
+  
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    console.log ("Se ha creado un nuevo usuario.")
+    console.log("Result: " + JSON.stringify(result,null,2));
+
+    res.json(result);
+  });
+
+});
+
+
+// Eliminar un usuario        ***FUNCIONA***
+
+app.post('/eliminar_usuario', function (req,res) {
+
+  const id = req.query.id_usuario;
+
+  const sql = "delete from usuarios where ID_Usuario = "+id;
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log ("Se ha eliminado el usuario.");
+    console.log ("Result: "+JSON.stringify(result,null,2));
+    
+    res.json(result);
+  });
+
+});
+
+// Modificar un vehículo
+
+
+
+// Crear un nuevo vehículo
+
+
+
+// Eliminar un vehículo
+
+
+
+// Modificar un servicio
+
+
+
+// Crear un nuevo servicio
+
+
+
+// Eliminar un servicio
+
+
+
+// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario
+
+app.get('/usuariovehiculos',function(req,res){
+
+  const id = req.query.id_usuario;
+  const sql = "SELECT * from usuarios where ID_Usuario = "+id+" union Select * from vehiculos where Id_usuario = "+id;
+
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    console.log("Result: " + JSON.stringify(result,null,2));
+
+    res.json(result);
+  });
+});
+
+// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario 
 
