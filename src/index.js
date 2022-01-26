@@ -147,13 +147,15 @@ app.post('/modificar_usuario',function(req,res){
 
 app.post('/crear_usuario', function (req,res) {
 
+  const id = "SELECT MAX ID_Usuario from usuarios"
+  const admin = 0;
   const nombre = req.body.nombre;
   const contra = req.body.contraseña;
   const telefono = req.body.telefono;
   const email = req.body.email;
 
-  const sql = "insert into usuarios (Contraseña, Nombre, Telefono, Email ) values ( "+contra+" ,"+nombre+" ,"+telefono+" ,"+email+" )"
-  
+  const sql = "insert into usuarios (ID_Usuario, Admin, Contraseña, Nombre, Telefono, Email ) values ( "+id+" ,"+admin+" ,"+nombre+" ,"+contra+" ,"+telefono+" ,"+email+" )"
+
   con.query(sql, function (err, result) {
     if (err) throw err;
 
@@ -192,7 +194,7 @@ app.post('/eliminar_usuario', function (req,res) {
 
 
 
-// Eliminar un vehículo       ***Falta comprobar***
+// Eliminar un vehículo       ***Funciona***
 
 app.post('/eliminar_vehiculo', function (req,res) {
 
@@ -218,16 +220,30 @@ app.post('/eliminar_vehiculo', function (req,res) {
 
 
 
-// Eliminar un servicio
+// Eliminar un servicio         ***FUNCIONA***
 
+app.post('/eliminar_servicio', function (req,res) {
 
+  const id = req.query.id_servicio;
 
-// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario
+  const sql = "delete from servicios where ID_Servicio = "+id;
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log ("Se ha eliminado el servicio.");
+    console.log ("Result: "+JSON.stringify(result,null,2));
+    
+    res.json(result);
+  });
+
+});
+
+// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario      ***NO FUNCIONA***
 
 app.get('/usuariovehiculos',function(req,res){
 
   const id = req.query.id_usuario;
-  const sql = "SELECT * from usuarios where ID_Usuario = "+id+" union Select * from vehiculos where Id_usuario = "+id;
+  const sql = "SELECT * from usuarios where ID_Usuario = "+id+" join Select * from vehiculos where Id_usuario = "+id;
 
 
   con.query(sql, function (err, result) {
@@ -239,5 +255,19 @@ app.get('/usuariovehiculos',function(req,res){
   });
 });
 
-// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario 
+// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario ***PENSAR PLANTEAMIENTO + NO FUNCIONA OBV***
 
+app.get ('/vehiculosyservicios', function (req, res) {
+
+  const id = req.query.id_usuario;
+  const sql = "SELECT from vehiculos where ID_Usuario = "+id+ "union SELECT * from servicios where ID_Usuario ="+id;
+  
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    console.log ("Result: "+ JSON.stringify(result,null,2));
+
+    res.json(result);
+    
+  });
+});
