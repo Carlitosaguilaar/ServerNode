@@ -274,7 +274,7 @@ app.post('/eliminar_servicio', function (req,res) {
 
 });
 
-// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario      ***NO FUNCIONA***
+// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario      ***FUNCIONA***
 
 app.get('/usuariovehiculos',function(req,res){
 
@@ -290,7 +290,7 @@ app.get('/usuariovehiculos',function(req,res){
   });
 });
 
-// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario ***PENSAR PLANTEAMIENTO + NO FUNCIONA OBV***
+// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario ***FUNCIONA***
 
 app.get ('/vehiculosservicios', function (req, res) {
 
