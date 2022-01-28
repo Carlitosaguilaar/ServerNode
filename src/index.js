@@ -207,9 +207,27 @@ app.post('/modificar_vehiculo',function(req,res){
   });
 });
 
-// Crear un nuevo vehículo
+// Crear un nuevo vehículo                                  ***No funciona, falta arreglar un par de cosas***
 
+app.post('/crear_vehiculo', function (req,res) {      
 
+  const matricula = req.body.matricula;
+  const marca = req.body.marca;
+  const modelo = req.body.modelo;
+  const año_fabricacion = req.body.año_fabricacion;
+
+  const sql = "insert into usuarios (matricula, marca, modelo, año_fabricacion ) values ('"+matricula+"' ,'"+marca+"' ,'"+modelo+"' ,'"+año_fabricacion+"')";
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    console.log ("Se ha creado un nuevo vehiculo.")
+    console.log("Result: " + JSON.stringify(result,null,2));
+
+    res.json(result);
+  });
+
+});
 
 // Eliminar un vehículo       ***Funciona***
 
