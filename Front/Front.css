@@ -1,3 +1,18 @@
+body{
+    margin: 0;
+    width: 100vw;
+    background: #000000;
+    background: -webkit-linear-gradient(to right, #434343, #000000); 
+    background: linear-gradient(to right, #434343, #000000); 
+
+}
+
 #form1{
-    background-color: red;
+    
+    height: 25vh;   
+}
+
+.campo1{
+    background-color: white;
+    margin-left: 2%;
 }
