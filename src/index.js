@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 var server = app.listen(3000,function(err,re) {});
 
 
-//Mostar lista de usuarios        ***FUNCIONA***
+//Mostar lista de usuarios
 app.get('/lista',function(req,res){
 
     const sql = "SELECT * from usuarios";
@@ -38,7 +38,7 @@ app.get('/lista',function(req,res){
     });
 });
 
-//Mostar información de un usuario, filtrando por su ID        ***FUNCIONA***
+//Mostar información de un usuario, filtrando por su ID
 app.get('/usuarios',function(req,res){
 
   const id = req.query.id_usuario;
@@ -55,7 +55,7 @@ app.get('/usuarios',function(req,res){
 
 
 
-//Lista de vehículos filtrando por ID de usuario        ***FUNCIONA***
+//Lista de vehículos filtrando por ID de usuario
 
 app.get('/vehiculo_usuario',function(req,res){
 
@@ -71,7 +71,7 @@ app.get('/vehiculo_usuario',function(req,res){
   });
 });
 
-//Información de un vehículo filtrando por el ID del vehículo        ***FUNCIONA***
+//Información de un vehículo filtrando por el ID del vehículo
 
 app.get('/vehiculo_id',function(req,res){
 
@@ -88,7 +88,7 @@ app.get('/vehiculo_id',function(req,res){
 });
 
 
-//Lista de servicios filtrando por un ID de vehículo        ***FUNCIONA***
+//Lista de servicios filtrando por un ID de vehículo
 
 app.get('/servicios_vehiculo',function(req,res){
 
@@ -104,7 +104,7 @@ app.get('/servicios_vehiculo',function(req,res){
   });
 });
 
-//Información de un servicio filtrando por el ID del servicio     ***FUNCIONA***
+//Información de un servicio filtrando por el ID del servicio
 
 app.get('/descripcion_servicio',function(req,res){
 
@@ -121,7 +121,7 @@ app.get('/descripcion_servicio',function(req,res){
 });
 
 
-// Modificar datos de un usuario      ***FUNCIONA***
+// Modificar datos de un usuario
 
 app.post('/modificar_usuario',function(req,res){
 
@@ -136,7 +136,7 @@ app.post('/modificar_usuario',function(req,res){
   con.query(sql, function (err, result) {
     if (err) throw err;
 
-    console.log ("Se ha realizado el cambio.")
+    console.log ("Se ha realizado el cambio en el usuario.")
     console.log("Result: " + JSON.stringify(result,null,2));
 
     res.json(result);
@@ -144,7 +144,7 @@ app.post('/modificar_usuario',function(req,res){
 });
 
 
-// Crear un nuevo usuario   ***FUNCIONA***
+// Crear un nuevo usuario
 
 app.post('/crear_usuario', function (req,res) {
 
@@ -167,7 +167,7 @@ app.post('/crear_usuario', function (req,res) {
 });
 
 
-// Eliminar un usuario        ***FUNCIONA***
+// Eliminar un usuario
 
 app.post('/eliminar_usuario', function (req,res) {
 
@@ -185,7 +185,8 @@ app.post('/eliminar_usuario', function (req,res) {
 
 });
 
-// Modificar un vehículo    ***FUNCIONA***
+
+// Modificar un vehículo
 
 app.post('/modificar_vehiculo',function(req,res){
 
@@ -200,23 +201,24 @@ app.post('/modificar_vehiculo',function(req,res){
   con.query(sql, function (err, result) {
     if (err) throw err;
 
-    console.log ("Se ha realizado el cambio.")
+    console.log ("Se ha realizado el cambio en el vehículo.")
     console.log("Result: " + JSON.stringify(result,null,2));
 
     res.json(result);
   });
 });
 
-// Crear un nuevo vehículo                                  ***No funciona, falta arreglar un par de cosas***
+// Crear un nuevo vehículo
 
 app.post('/crear_vehiculo', function (req,res) {      
 
   const matricula = req.body.matricula;
+  const id_usuario = req.body.id_usuario;
   const marca = req.body.marca;
   const modelo = req.body.modelo;
   const año_fabricacion = req.body.año_fabricacion;
 
-  const sql = "insert into usuarios (matricula, marca, modelo, año_fabricacion ) values ('"+matricula+"' ,'"+marca+"' ,'"+modelo+"' ,'"+año_fabricacion+"')";
+  const sql = "insert into vehiculos (matricula, id_usuario,  marca, modelo, año_fabricacion ) values ('"+matricula+"' , '"+id_usuario+"' , '"+marca+"' ,'"+modelo+"' ,'"+año_fabricacion+"')";
 
   con.query(sql, function (err, result) {
     if (err) throw err;
@@ -229,7 +231,7 @@ app.post('/crear_vehiculo', function (req,res) {
 
 });
 
-// Eliminar un vehículo       ***Funciona***
+// Eliminar un vehículo
 
 app.post('/eliminar_vehiculo', function (req,res) {
 
@@ -263,7 +265,7 @@ app.post('/modificar_servicio',function(req,res){
   con.query(sql, function (err, result) {
     if (err) throw err;
 
-    console.log ("Se ha realizado el cambio.")
+    console.log ("Se ha realizado el cambio en el servicio.")
     console.log("Result: " + JSON.stringify(result,null,2));
 
     res.json(result);
@@ -272,9 +274,29 @@ app.post('/modificar_servicio',function(req,res){
 
 // Crear un nuevo servicio
 
+app.post('/crear_servicio', function (req,res) {        
 
+  const id_vehiculo = req.body.id_vehiculo;
+  const nombre = req.body.nombre;
+  const precio = req.body.precio;
+  const tipo = req.body.tipo_servicio;
+  const descripcion = req.body.descripcion;
+  const fecha = req.body.fecha
 
-// Eliminar un servicio         ***FUNCIONA***
+  const sql = "insert into servicios (id_vehiculo, nombre, precio, tipo_servicio, descripcion, fecha ) values ('"+id_vehiculo+"' , '"+nombre+"' , '"+precio+"' ,'"+tipo+"' ,'"+descripcion+"' , '"+fecha+"')";
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+
+    console.log ("Se ha creado un nuevo servicio.")
+    console.log("Result: " + JSON.stringify(result,null,2));
+
+    res.json(result);
+  });
+
+});
+
+// Eliminar un servicio
 
 app.post('/eliminar_servicio', function (req,res) {
 
@@ -292,7 +314,7 @@ app.post('/eliminar_servicio', function (req,res) {
 
 });
 
-// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario      ***FUNCIONA***
+// Información de un usuario y su lista de vehículos en la misma llamada filtrando por ID de usuario
 
 app.get('/usuariovehiculos',function(req,res){
 
@@ -308,7 +330,7 @@ app.get('/usuariovehiculos',function(req,res){
   });
 });
 
-// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario ***FUNCIONA***
+// Información de un vehículo y su lista de servicios en la misma llamada filtrando por ID de usuario
 
 app.get ('/vehiculosservicios', function (req, res) {
 
