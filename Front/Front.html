@@ -10,16 +10,41 @@
 </head>
 <body>
     
-    <form action="" method="get" id="form1">
+    <form action="" method="get" class="formularios" name="usuarios">
 
-        <input type="text" class="campo1" name="" placeholder="ID_Usuario">
-        <input type="text" class="campo1" name="" placeholder="Nombre">
-        <input type="text" class="campo1" name="" placeholder="Contraseña">
-        <input type="text" class="campo1" name="" placeholder="Telefono">
-        <input type="text" class="campo1" name="" placeholder="Email">
-        <input type="submit" value="Actualizar">
-
+        <input type="number" class="campos" name="" placeholder="ID_Usuario">
+        <input type="text" class="campos" name="" placeholder="Nombre">
+        <input type="password" class="campos" name="" placeholder="Contraseña">
+        <input type="num" class="campos" name="" placeholder="Telefono">
+        <input type="text" class="campos" name="" placeholder="Email">
+        
     </form>
-
+    
+    <form action="" method="get" class="formularios" name="vehiculos">
+        
+        <input type="number" class="campos" name="id_vehiculo" placeholder="ID_Vehiculo">
+        <input type="text" class="campos" name="matricula" placeholder="Matricula">
+        <input type="number" class="campos" name="id_usuario" placeholder="ID_Usuario">
+        <input type="text" class="campos" name="marca" placeholder="Marca">
+        <input type="text" class="campos" name="modelo" placeholder="Modelo">
+        <input type="date" class="campos" name="anio_fabricacion" placeholder="Año fabricación">
+        
+    </form>
+    
+    
+    <form action="" method="get" class="formularios" name="servicios">
+        
+        <input type="number" class="campos" name="matricula" placeholder="Id_Servicio">
+        <input type="number" class="campos" name="id_vehiculo" placeholder="ID_Vehiculo">
+        <input type="text" class="campos" name="id_usuario" placeholder="Nombre">
+        <input type="number" class="campos" name="marca" placeholder="Precio">
+        <input type="text" class="campos" name="modelo" placeholder="TIpo de servicio">
+        <input type="text" class="campos" name="anio_fabricacion" placeholder="Descripcion">
+        <input type="date" class="campos" name="anio_fabricacion" placeholder="Fecha">
+        
+    </form>
+    
+        <input type="submit" class="campos" value="Actualizar">
+    
 </body>
 </html>

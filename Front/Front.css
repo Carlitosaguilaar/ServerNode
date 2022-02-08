@@ -3,16 +3,19 @@ body{
     width: 100vw;
     background: #000000;
     background: -webkit-linear-gradient(to right, #434343, #000000); 
-    background: linear-gradient(to right, #434343, #000000); 
+    background: linear-gradient(to right, #434343, #000000);
 
 }
 
-#form1{
-    
+.formularios{
     height: 25vh;   
 }
 
-.campo1{
-    background-color: white;
-    margin-left: 2%;
+.campos{
+    margin-left: 1%;
+    padding: 1%;
+    border-radius: 15px;    
+    background-color: red;
+    color: white;
+    outline: none;
 }
