@@ -61,10 +61,9 @@ function api(api_url) {
 
 }
 function m_ID() {
-    var dedo2 = document.getElementById("boton2");
-    valor = dedo2.value;
+    var dedo2 = document.getElementById("btn2").value;
     document.getElementById('contenedor').textContent = '';
-    fetch('http://localhost:3000/usuarios/?id_usuario='+valor, {
+    fetch('http://localhost:3000/usuarios/?id_usuario='+dedo2, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -76,6 +75,7 @@ function m_ID() {
     .then(data => {
         for (const clave of data) {
             var div = document.createElement('div');
+            div.className="nuevoTexto";
             for (const Interna in clave) {
                 var parrafo = document.createElement('p')
                 var newTexto = document.createTextNode(Interna+" : " + clave[Interna]);
@@ -85,7 +85,7 @@ function m_ID() {
             document.querySelector('#contenedor').appendChild(div);
         }
     }) 
-    fetch('http://localhost:3000/usuarios/?id_usuario='+valor, {
+    fetch('http://localhost:3000/vehiculo_usuario/?id_usuario='+dedo2, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -99,9 +99,12 @@ function m_ID() {
             var div2 = document.createElement('div');
             for (const Interna in cl) {
                 var parrafo = document.createElement('p');
+                div2.className="nuevoTexto";
                 var nodoTexto = document.createTextNode(Interna+" : " + cl[Interna]);
                 parrafo.appendChild(nodoTexto);
                 div2.appendChild(parrafo);
+
+
             }
             document.querySelector('#contenedor').appendChild(div2);
         }
@@ -116,3 +119,5 @@ function borrar() {
     dedo.remove(deeedo2);
    
 }
+
+

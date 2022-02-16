@@ -42,7 +42,7 @@ app.get('/lista',function(req,res){
 app.get('/usuarios',function(req,res){
 
   const id = req.query.id_usuario;
-  const sql = "SELECT * from usuarios where ID_Usuario = "+id;
+  const sql = "SELECT nombre,telefono,email from usuarios where ID_Usuario = "+id;
 
   con.query(sql, function (err, result) {
     if (err) throw err;
