@@ -42,6 +42,8 @@ function api(api_url) {
 
         var diiv = document.createElement("div");
 
+        diiv.id="Caja"
+
         var nuevo_parrafo = document.createElement("p");
         nuevo_parrafo.textContent = "Nombre: "+data[i].Nombre+", teléfono: "+data[i].Telefono+", email: "+data[i].Email;
         nuevo_parrafo.className="nuevoTexto";
@@ -59,9 +61,10 @@ function api(api_url) {
 
 }
 function m_ID() {
-    var input = document.querySelector("id_input");
+    var dedo2 = document.getElementById("boton2");
+    valor = dedo2.value;
     document.getElementById('contenedor').textContent = '';
-    fetch('http://localhost:3000/usuario_por_id_usuario/?id_usuario=%27'+input.value, {
+    fetch('http://localhost:3000/usuarios/?id_usuario='+valor, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -73,16 +76,16 @@ function m_ID() {
     .then(data => {
         for (const clave of data) {
             var div = document.createElement('div');
-            for (const claveInterna in clave) {
+            for (const Interna in clave) {
                 var parrafo = document.createElement('p')
-                var nodoTexto = document.createTextNode(claveInterna+" : " + clave[claveInterna]);
-                parrafo.appendChild(nodoTexto);
+                var newTexto = document.createTextNode(Interna+" : " + clave[Interna]);
+                parrafo.appendChild(newTexto);
                 div.appendChild(parrafo);
             }
             document.querySelector('#contenedor').appendChild(div);
         }
     }) 
-    fetch('http://localhost:3000/usuarios/?id_usuario='+input.value, {
+    fetch('http://localhost:3000/usuarios/?id_usuario='+valor, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -105,4 +108,11 @@ function m_ID() {
     }) 
 }
 
+function borrar() {
 
+    var dedo = document.getElementById("cajaCentral");
+    var deeedo2 = document.getElementById("Caja");
+
+    dedo.remove(deeedo2);
+   
+}
